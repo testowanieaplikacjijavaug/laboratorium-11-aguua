@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 
 @ExtendWith(SeleniumExtension.class)
@@ -20,7 +21,7 @@ public class IsElementPresentTest_zad2 {
 
     public boolean isElementPresent(By by) {
         try {
-            driver.findElements(by);
+            driver.findElement(by);
             return true;
         } catch (org.openqa.selenium.NoSuchElementException e) {
             return false;
@@ -28,7 +29,7 @@ public class IsElementPresentTest_zad2 {
     }
 
     @BeforeEach
-    public void setUp() throws Exception {
+    public void setUp() {
         driver.get("https://duckduckgo.com/");
     }
 
@@ -45,17 +46,23 @@ public class IsElementPresentTest_zad2 {
     }
 
     @Test
-    public void testText(){
-        boolean isPresent = isElementPresent(By.linkText("Lear More"));
+    public void testClassName(){
+        boolean isPresent = isElementPresent(By.className("js-search-form"));
         assertTrue(isPresent);
     }
 
     @Test
     public void testCssSelector(){
-        boolean isPresent = isElementPresent(By.cssSelector("input[id=email]"));
+        boolean isPresent = isElementPresent(By.cssSelector("input"));
         assertTrue(isPresent);
     }
 
+    @Test
+    public void testNotExistingElement(){
+        //driver.findElement(By.id("no_such_id_on_website"));
+        boolean isPresent = isElementPresent(By.id("no_such_id_on_website"));
+        assertFalse(isPresent);
+    }
 
 
 
