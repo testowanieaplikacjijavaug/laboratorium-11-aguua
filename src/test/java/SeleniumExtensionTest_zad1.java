@@ -1,7 +1,4 @@
 import io.github.bonigarcia.seljup.SeleniumExtension;
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,7 +9,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -20,24 +16,17 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(SeleniumExtension.class)
-public class BrowserTest_zad1 {
-    private static WebDriver driver;
+public class SeleniumExtensionTest_zad1 {
 
-    @BeforeAll
-    public static void setUpDriver(){
-        WebDriverManager.firefoxdriver().setup();
-        driver = new FirefoxDriver();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+    private FirefoxDriver driver;
+
+    public SeleniumExtensionTest_zad1(FirefoxDriver driver) {
+        this.driver = driver;
     }
 
     @BeforeEach
     public void setUp() throws Exception {
         driver.get("https://duckduckgo.com/");
-    }
-
-    @AfterAll
-    public static void tearDown() throws Exception {
-        driver.quit();
     }
 
     @Test
