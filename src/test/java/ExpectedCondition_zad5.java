@@ -58,4 +58,18 @@ public class ExpectedCondition_zad5 {
         assertTrue(message.getText().toLowerCase().contains("summer"));
     }
 
+    @Test
+    public void test3(){
+        driver.get("http://automationpractice.com/index.php?controller=contact");
+        driver.findElement(By.xpath("//div/button[@class='button btn btn-default button-medium']")).click();
+        WebElement message = new WebDriverWait(driver, 5)
+                .until(new ExpectedCondition<WebElement>(){
+                    @Override
+                    public WebElement apply(WebDriver d){
+                        return d.findElement(By.xpath("//div[@class='alert alert-danger']"));
+                    }
+                });
+        assertTrue(message.getText().toLowerCase().contains("invalid email address"));
+    }
+
 }
