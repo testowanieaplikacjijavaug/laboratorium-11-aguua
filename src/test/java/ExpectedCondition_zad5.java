@@ -3,11 +3,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(SeleniumExtension.class)
@@ -31,7 +31,7 @@ public class ExpectedCondition_zad5 {
     }
 
     @Test
-    public void checkButtonRequestAjax(){
+    public void test1(){
         driver.get("http://automationpractice.com/index.php");
         driver.findElement(By.xpath("//button[@type='submit']")).click();
         boolean elementExists= wait
@@ -42,6 +42,20 @@ public class ExpectedCondition_zad5 {
                     }
                 });
         assertTrue(elementExists);
+    }
+
+    @Test
+    public void test2(){
+        driver.get("http://automationpractice.com/index.php");
+        driver.findElement(By.id("search_query_top")).sendKeys("summer");
+        WebElement message = new WebDriverWait(driver, 5)
+                .until(new ExpectedCondition<WebElement>(){
+                    @Override
+                    public WebElement apply(WebDriver d){
+                        return d.findElement(By.className("ac_results"));
+                    }
+                });
+        assertTrue(message.getText().toLowerCase().contains("summer"));
     }
 
 }
